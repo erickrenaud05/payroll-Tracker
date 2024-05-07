@@ -5,13 +5,23 @@ const employeesArray = [];
 // Collect employee data
 const collectEmployees = function() {
   // TODO: Get user input to create and return an array of employee objects
-  let newEmployee = {
-    firstName: prompt('first name:'),
-    lastName: prompt('Last name:'),
-    salary: prompt('salary')
-  };
+   while(true) {
+    const newEmployee = {
+      firstName: prompt('first name:'),
+      lastName: prompt('Last name:'),
+      salary: prompt('salary')
+    };
 
-  employeesArray.push(newEmployee);
+    employeesArray.push(newEmployee);
+
+    const keepGoing = confirm('Press continue to add more emplyees. Press cancel to finish adding employees.');
+
+    if(!keepGoing) {
+      console.log(employeesArray);
+      break;
+    }
+  }
+
 }
 
 // Display the average salary
