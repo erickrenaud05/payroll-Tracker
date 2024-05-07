@@ -1,9 +1,17 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
+const employeesArray = [];
 // Collect employee data
 const collectEmployees = function() {
   // TODO: Get user input to create and return an array of employee objects
+  let newEmployee = {
+    firstName: prompt('first name:'),
+    lastName: prompt('Last name:'),
+    salary: prompt('salary')
+  };
+
+  employeesArray.push(newEmployee);
 }
 
 // Display the average salary
@@ -45,7 +53,7 @@ const displayEmployees = function(employeesArray) {
     newTableRow.append(lastNameCell);
 
     const salaryCell = document.createElement("td");
-    // Format the salary as currency
+    // Format the salary as currency\
     salaryCell.textContent = currentEmployee.salary.toLocaleString("en-US",{
       style:"currency",
       currency:"USD"
