@@ -1,35 +1,62 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
+//prompts for name and iterates through both first and last name and uses custom 
+//verifyConditions function to rePrompt the user if conditions arent met
+function promptForName(newEmployee) {
+      newEmployee.firstName = prompt('First Name: ');
+      while (!verifyConditions(newEmployee.firstName)) {
+        newEmployee.firstName = prompt('Please enter valid first name. (only letters of the alphabet)');
+      }  
+      newEmployee.lastName = prompt('Last Name: ');
+      while (!verifyConditions(newEmployee.lastName)) {
+        newEmployee.lastName = prompt('Please enter valid last name. (only letters of the alphabet)');
+      } 
+  }
+
+  function verifyConditions (currentEl) {
+      let areConditionsMet = false;
+      for (let i = 0; i < currentEl.length; i++) {
+        const asciiValue = currentEl[i].charCodeAt();
+        if(!(asciiValue >= 97 && asciiValue <= 122 || asciiValue >= 60 && asciiValue <= 95))
+          {
+            areConditionsMet = false;
+            return areConditionsMet;
+          } 
+      }
+      areConditionsMet = true;
+      return areConditionsMet; 
+  }
+    
 const employeesArray = [];
 // Collect employee data
 const collectEmployees = function() {
+  
   // TODO: Get user input to create and return an array of employee objects
    while(true) {
     const newEmployee = {
-      firstName: prompt('first name:'),
-      lastName: prompt('Last name:'),
-      salary: prompt('salary')
+      firstName: '',
+      lastName: '',
+      salary: 0
     };
-  
-    //sorting array alphabetically based on last names
-    if(employeesArray.length < 1) {
-        employeesArray.push(newEmployee);
-    } else {
-      for (let i = 0; i < employeesArray.length; i++) {
-        const currentEmployee = employeesArray[i];
-        if(newEmployee.lastName < currentEmployee.lastName || newEmployee.lastName === currentEmployee.lastName) {
-          employeesArray.splice(i, 0, newEmployee);
-          break;
-        } 
-      }
-    }
 
-    const keepGoing = confirm('Press continue to add more emplyees. Press cancel to finish adding employees.');
+    // rePrompt user if any of the data doesnt fit these criterias 
+    // 1- Names can ONLY contain letters of the alphabet (no special characters)
+    // 2- Salary can ONLY have numbers
+    promptForName(newEmployee);
+
+    newEmployee.salary = Number(prompt('Salary: '));
+    while(isNaN(newEmployee.salary))
+      {
+        newEmployee.salary = Number(prompt('Please enter valid number'));
+      }
+    // push newEmployee to array
+    employeesArray.push(newEmployee);
+
+    const keepGoing = confirm('Press continue to add more employees. Press cancel to finish adding employees.');
 
     if(!keepGoing) {
-      displayEmployees(employeesArray);
-      break;
+      return employeesArray;
     }
   }
 
