@@ -11,13 +11,24 @@ const collectEmployees = function() {
       lastName: prompt('Last name:'),
       salary: prompt('salary')
     };
-
-    employeesArray.push(newEmployee);
+  
+    //sorting array alphabetically based on last names
+    if(employeesArray.length < 1) {
+        employeesArray.push(newEmployee);
+    } else {
+      for (let i = 0; i < employeesArray.length; i++) {
+        const currentEmployee = employeesArray[i];
+        if(newEmployee.lastName < currentEmployee.lastName || newEmployee.lastName === currentEmployee.lastName) {
+          employeesArray.splice(i, 0, newEmployee);
+          break;
+        } 
+      }
+    }
 
     const keepGoing = confirm('Press continue to add more emplyees. Press cancel to finish adding employees.');
 
     if(!keepGoing) {
-      console.log(employeesArray);
+      displayEmployees(employeesArray);
       break;
     }
   }
