@@ -6,21 +6,23 @@ const addEmployeesBtn = document.querySelector('#add-employees-btn');
 function promptForName(newEmployee) {
       newEmployee.firstName = prompt('First Name: ');
       while (!verifyConditions(newEmployee.firstName)) {
-        newEmployee.firstName = prompt('Please enter valid first name. (only letters of the alphabet)');
+        newEmployee.firstName = prompt('Please enter valid first name. (only letters of the alphabet and atleast 1 chararcter)');
       }  
       newEmployee.lastName = prompt('Last Name: ');
       while (!verifyConditions(newEmployee.lastName)) {
-        newEmployee.lastName = prompt('Please enter valid last name. (only letters of the alphabet)');
+        newEmployee.lastName = prompt('Please enter valid last name. (only letters of the alphabet and atleast 1 chararcter)');
       } 
   }
 
   function verifyConditions (currentEl) {
       let areConditionsMet = false;
+      if (currentEl.length < 1) {
+        return areConditionsMet;
+      }
       for (let i = 0; i < currentEl.length; i++) {
         const asciiValue = currentEl[i].charCodeAt();
         if(!(asciiValue >= 97 && asciiValue <= 122 || asciiValue >= 60 && asciiValue <= 95))
           {
-            areConditionsMet = false;
             return areConditionsMet;
           } 
       }
